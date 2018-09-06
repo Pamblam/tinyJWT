@@ -2,32 +2,35 @@
 
 require("JWT.php");
 
-define('TOKEN_SECRET', 'AsdfasdfASFD@#45');
+echo "<h3>Create a new token</h3>";
+define('TOKEN_SECRET', 'farts!@#');
+$payload = array('uid'=>123);
+$JWT = JWT::makeToken($payload, TOKEN_SECRET);
+$token = $JWT->build();
+echo "<textarea>$token</textarea><br>";
 
-$payload = array(
-	'user_id' => 123
-);
+echo "<h3>Set a token's expiration time (in hours)</h3>";
+$token = $JWT->setExpiration(6)->build();
+echo "<textarea>$token</textarea><br>";
 
-// Creating the token string
-$token = JWT::makeToken($payload, TOKEN_SECRET);
-$token->setExpiration(0.001); // about 4 seconds
-$jwt = $token->build();
+echo "<h3>Parse and validate a token</h3>";
+$JWT = JWT::loadToken($token, TOKEN_SECRET) or die('Token is not valid.');
+if($JWT->isExpired()) die('token has expired');
+echo "Token is valid<br>";
 
-echo "<h2>Token String is: </h2>";
-echo "<pre>$jwt</pre>";
-echo "<hr>";
+echo "<h3>Add (or set) a value to the token's payload</h3>";
+$token = $JWT->setValue('Favorite Color', 'Green')->build(); // Rebuild token string
+echo "<textarea>$token</textarea><br>";
 
-// Parsing the token string
-$token = JWT::loadToken($jwt, TOKEN_SECRET) or die("Token is not valid: $jwt");
-$user_id = $token->getValue('user_id');
-		
-echo "<h2>User ID is: </h2>";
-echo "<pre>$user_id</pre>";
-echo "<hr>";
+echo "<h3>Get a value of the token's payload</h3>";
+$color = $JWT->getValue('Favorite Color'); // Green
+echo "$color<br>";
 
-echo "<h2>Expiration Test: </h2>";
-echo $token->isExpired() ? "Token is expired." : "Token is NOT expired yet.";
-echo "<hr>";
-sleep(4); // Token expires in 4 seconds
-echo $token->isExpired() ? "Token is expired." : "Token is NOT expired yet.";
-echo "<hr>";
+echo "<h3>Get the entire payload array</h3>";
+$payload = $JWT->getPayload();
+echo "<pre>"; print_r($payload); echo "</pre>";
+
+echo "<h3>Delete a payload item</h3>";
+$token = $JWT->deleteValue('Favorite Color');
+$payload = $JWT->getPayload();
+echo "<pre>"; print_r($payload); echo "</pre>";

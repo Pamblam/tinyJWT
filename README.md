@@ -1,10 +1,12 @@
 
 # tinyJWT
 
-The smallest, simplest possible JSON Web Token class. (> 200 lines of PHP). Perfectly safe to use as is or use it as a starting point for your own implementation. IDGAF.
+The smallest, simplest possible [JSON Web Token](https://jwt.io/) class. (> 200 lines of PHP). Perfectly safe to use as is or use it as a starting point for your own implementation. IDGAF.
+
+This class uses the `HS256` algo. For simplicity, this is the only one available.
 
 ### Examples
-There are more examples in the examples.php file.
+There are more examples in the [example.php](https://github.com/Pamblam/tinyJWT/blob/master/example.php) file.
 
 **Create a new token**
 ```php
