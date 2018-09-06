@@ -1,4 +1,10 @@
 <?php
+/**
+ * JSON Web Tokens (RFC 7519)
+ * The smallest, simplest possible JWT class.
+ * https://github.com/Pamblam/tinyJWT
+ * WTFPL
+ */
 
 class JWT{
 	
