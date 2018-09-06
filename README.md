@@ -1,5 +1,5 @@
 
-# tinyJWT
+# tinyJWT [RFC 7519](https://tools.ietf.org/html/rfc7519)
 
 The smallest, simplest possible [JSON Web Token](https://jwt.io/) class. (> 200 lines of PHP). Perfectly safe to use as is or use it as a starting point for your own implementation. IDGAF.
 
